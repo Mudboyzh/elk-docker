@@ -1,0 +1,27 @@
+bootstrap.memory_lock: true # 禁用Swap
+cluster.name: elastic-cluster-1
+http.port: 9202
+transport.port: 9300
+network.host: 0.0.0.0
+# node type: Master / Data / ...
+node.master: true
+#node.voting_only: false
+node.data: false # 設定false 則為 master only node, 反之 node.master: false, node.data:true 則為data only node
+node.ingest: false
+cluster.remote.connect: false
+# -------------------------------
+node.max_local_storage_nodes: 1 # node type 不同勿將data放於同path.data
+node.name: es-node-2
+discovery.seed_hosts: ["192.168.50.197:9300", "192.168.50.197:9302", "192.168.50.197:9303"]
+cluster.initial_master_nodes: ["es-node-2"] # 設定檔的陣列務必相同，避免產生多個群集
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/log
+xpack.license.self_generated.type: basic
+xpack.security.enabled: false
+http.cors.enabled: true # for es-head
+http.cors.allow-origin: "*"
+# enable for script field regex
+script.painless.regex.enabled: true
+xpack.monitoring.collection.enabled: true
+
+

@@ -1,0 +1,12 @@
+## Default Logstash configuration from logstash-docker.
+## from https://github.com/elastic/logstash-docker/blob/master/build/logstash/config/logstash-oss.yml
+#
+http.host: "0.0.0.0"
+
+# pipeline.workers: 2 
+pipeline.batch.size: 200
+xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.sniffing: true
+# ---
+
