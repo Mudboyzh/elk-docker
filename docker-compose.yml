@@ -16,7 +16,7 @@ services:
       - "9300:9300"
     restart: always
     environment:
-      ES_JAVA_OPTS: "-Xmx1g -Xms1g" #依需求調整記憶體大小
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m" #依需求調整記憶體大小
     ulimits: # 禁止 swap
       memlock:
         soft: -1
@@ -42,7 +42,7 @@ services:
         - "9302:9300"
       restart: always
       environment:
-        ES_JAVA_OPTS: "-Xmx1g -Xms1g" #依需求調整記憶體大小
+        ES_JAVA_OPTS: "-Xmx512m -Xms512m" #依需求調整記憶體大小
       ulimits:
         memlock:
           soft: -1
@@ -66,6 +66,32 @@ services:
     ports:
       - "9203:9200"
       - "9303:9300"
+    restart: always
+    environment:
+      ES_JAVA_OPTS: "-Xmx1g -Xms1g" #依需求調整記憶體大小
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elk
+    logging: 
+      driver: "json-file"
+      options: 
+        max-size: "100m"
+  elasticsearch-node-4:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elasticsearch/config/elasticsearch-node-4.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./elasticsearch/config/IKAnalyzer.cfg.xml:/usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml:ro #修改ik分詞字典設定
+      - ./data/node-4:/usr/share/elasticsearch/data # 放置persist Elasticsearch data 位置，避免刪除container之後資料不見
+      - ./log/node-4:/usr/share/elasticsearch/log
+    ports:
+      - "9204:9200"
+      - "9304:9300"
     restart: always
     environment:
       ES_JAVA_OPTS: "-Xmx1g -Xms1g" #依需求調整記憶體大小

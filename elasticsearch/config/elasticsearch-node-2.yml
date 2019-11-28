@@ -12,7 +12,7 @@ cluster.remote.connect: false
 # -------------------------------
 node.max_local_storage_nodes: 1 # node type 不同勿將data放於同path.data
 node.name: es-node-2
-discovery.seed_hosts: ["192.168.50.197:9300", "192.168.50.197:9302", "192.168.50.197:9303"]
+discovery.seed_hosts: ["192.168.50.197:9300", "192.168.50.197:9302", "192.168.50.197:9303", "192.168.50.197:9304"]
 cluster.initial_master_nodes: ["es-node-2"] # 設定檔的陣列務必相同，避免產生多個群集
 path.data: /usr/share/elasticsearch/data
 path.logs: /usr/share/elasticsearch/log
